@@ -1,0 +1,52 @@
+﻿@model VehicleFeesDto
+
+<div class="page-wrapper">
+    <div class="container mt-4">
+        <div class="d-flex align-items-center justify-content-center flex-column">
+            <div class="max-w-500">
+                <form id="vehicleForm" method="post" class="needs-validation" novalidate>
+                    <div class="form-group">
+                        <label for="basePrice">Enter the vehicle base price:</label>
+                        <input type="number" step="any" class="form-control" name="basePrice" id="basePrice"
+                               value="@Model?.BasePrice" required />
+                        <div class="invalid-feedback">Please enter the base price.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="vehicleType">Select the vehicle type:</label>
+                        <select asp-for="VehicleType" id="vehicleType" class="form-control pb-2" required>
+                            <option value="">Select a vehicle type</option> 
+                            <option value="common">Common</option>
+                            <option value="luxury">Luxury</option>
+                        </select>
+
+                        <div class="invalid-feedback">Please select a vehicle type.</div>
+                    </div>
+                </form>
+
+                @if (Model != null)
+                {
+                    <div class="mt-4">
+                        <h3>Fees and Amounts:</h3>
+                        <ul>
+                            <li>Basic User Fee: @Model.BasicUserFee</li>
+                            <li>Seller Special Fee: @Model.SellerSpecialFee</li>
+                            <li>Association Fee: @Model.AssociationFee</li>
+                            <li>Storage Fee: @Model.StorageFee</li>
+                            <li>Total: @Model.Total</li>
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        // Function to submit the form whenever the dropdown menu value changes
+        document.getElementById("vehicleType").addEventListener("change", function () {
+            document.getElementById("vehicleForm").submit();
+        });
+    </script>
+}
